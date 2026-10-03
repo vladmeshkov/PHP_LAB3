@@ -116,3 +116,11 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-alt
     .topbar__inner { gap: 8px; padding: 8px 0; }
     .nav { order: 3; flex-basis: 100%; }
 }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+input:invalid:not(:placeholder-shown):not(:focus) { border-color: var(--danger); }
+input[type="number"] { font: inherit; }
+
+.field { display: grid; gap: 4px; font-size: 0.82rem; color: var(--muted); }
+.field input { width: 100%; min-width: 0; font: inherit; font-size: 0.95rem; padding: 7px 10px; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }

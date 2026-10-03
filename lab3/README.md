@@ -6,10 +6,10 @@
 | Страница | Назначение |
 |---|---|
 | `index.php` | Главное меню: выбор части задания |
-| `shop.php` | Задание 1: каталог, корзина, скидки, оплата (`Payable`, `CreditCardPayment`, `PayPalPayment`) |
+| `shop.php` | Задание 1: каталог (цены в BYN), количество, корзина, промокоды, оплата (`Payable`, `CreditCardPayment`, `PayPalPayment`) |
 | `company.php` | Задание 1 (HomeWork 2): сведения о компании, отдельный `company.css` |
 | `journal.php` | Журнал событий магазина и последние заказы |
-| `sport.php` | Задание 2: матчи (`Sport` → `Football`, `Basketball`, `Tennis`) |
+| `sport.php` | Задание 2: матчи со своими названиями команд и игроков (`Sport` → `Football`, `Basketball`, `Tennis`) |
 | `history.php` | История завершённых матчей с ходом игры |
 
 Переключатель светлой и тёмной темы есть на каждой странице, выбор хранится в сессии.
@@ -24,6 +24,9 @@ php -S localhost:8000 -t public
 ```
 
 Открыть http://localhost:8000 (главное меню). Под XAMPP достаточно положить папку в `htdocs` и открыть `lab3/public/`.
+
+Промокоды: `PROMO10`, `PROMO20`, `PROMO50` (на электронику скидка ограничена 30%).
+Формы проверяются в браузере до отправки, серверные проверки остаются.
 
 Тестовые данные оплаты: карта `4242 4242 4242 4242`, срок в будущем (например `12/30`), CVV из трёх цифр;
 PayPal — любой корректный e-mail.
@@ -44,9 +47,9 @@ templates/         шаблоны страниц
 ## Где что реализовано
 
 - Наследование: `Product` → `Book`, `Electronic`; `Payment` → `CreditCardPayment`, `PayPalPayment`; `Sport` → три вида спорта.
-- Переопределение: `getInfo()`, `getAttributes()`, лимит скидки (`MAX_DISCOUNT`), комиссия `fee()` у PayPal,
+- Переопределение: `getInfo()`, `getAttributes()`, потолок промо-скидки (`MAX_PROMO_DISCOUNT`), комиссия `fee()` у PayPal,
   `startMatch()`, `scorePoint()`, `info()` у видов спорта (вызов `parent::`).
-- Интерфейсы: `Discountable`, `Payable`, `Playable`, `Journaled`.
-- Трейт: `Loggable` подключён к `Product`, `Payment` и `Sport`.
+- Интерфейсы: `Discountable` (корзина), `Payable`, `Playable`, `Journaled`.
+- Трейт: `Loggable` подключён к `Cart`, `Payment` и `Sport`.
 - Инкапсуляция: состояние закрыто (`private`/`protected`), изменяется только методами;
   недопустимые операции выбрасывают `DomainException`.

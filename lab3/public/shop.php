@@ -29,6 +29,7 @@ function handleCheckout(): void
 
     $result = $payment->pay($cart->total());
     Store::collect($payment);
+    Store::collect($cart);
     $_SESSION['checkout_method'] = $method === 'paypal' ? 'paypal' : 'card';
 
     if (!$result->isSuccessful()) {
@@ -45,17 +46,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         switch ($_POST['action'] ?? '') {
             case 'add':
                 $product = Store::find((string) ($_POST['product_id'] ?? ''));
-                Store::cart()->add($product);
+                Store::cart()->add($product, filter_var($_POST['quantity'] ?? 1, FILTER_VALIDATE_INT) ?: 0);
+                Store::collect(Store::cart());
+                break;
+
+            case 'set_quantity':
+                Store::cart()->setQuantity(
+                    (string) ($_POST['product_id'] ?? ''),
+                    filter_var($_POST['quantity'] ?? 0, FILTER_VALIDATE_INT) ?: 0
+                );
                 break;
 
             case 'remove':
                 Store::cart()->remove((string) ($_POST['product_id'] ?? ''));
                 break;
 
-            case 'discount':
-                $product = Store::find((string) ($_POST['product_id'] ?? ''));
-                $product->applyDiscount((float) ($_POST['percent'] ?? 0));
-                Store::collect($product);
+            case 'apply_promo':
+                try {
+                    Store::cart()->applyPromo((string) ($_POST['promo'] ?? ''));
+                    Flash::add('success', 'Промокод применён.');
+                } finally {
+                    Store::collect(Store::cart());
+                }
+                break;
+
+            case 'remove_promo':
+                Store::cart()->removePromo();
                 break;
 
             case 'clear_cart':
@@ -79,10 +95,7 @@ View::render('shop', [
     'section'  => 'shop',
     'page'     => 'shop',
     'styles'   => ['shop'],
-    'scripts'  => ['checkout'],
     'products' => Store::products(),
     'cart'     => Store::cart(),
-    'orders'   => Store::orders(),
-    'journal'  => Store::journal(),
     'method'   => $_SESSION['checkout_method'] ?? 'card',
 ]);

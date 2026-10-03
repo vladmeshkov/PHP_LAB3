@@ -18,12 +18,12 @@ final class Store
     public static function products(): array
     {
         return State::remember('products', static fn (): array => [
-            new Book('book-php', 'PHP для начинающих', 1490, 'Иван Иванов', 384),
-            new Book('book-patterns', 'Паттерны проектирования', 2390, 'Э. Гамма и др.', 416),
-            new Book('book-refactoring', 'Рефакторинг', 2190, 'Мартин Фаулер', 448),
-            new Electronic('el-phone', 'Смартфон Honor 200', 32990, 'Honor', 24),
-            new Electronic('el-headphones', 'Наушники ProMax', 6490, 'SoundMax', 12),
-            new Electronic('el-watch', 'Умные часы Pulse S', 8990, 'Pulse', 12),
+            new Book('book-php', 'PHP для начинающих', 38.90, 'Иван Иванов', 384),
+            new Book('book-patterns', 'Паттерны проектирования', 62.50, 'Э. Гамма и др.', 416),
+            new Book('book-refactoring', 'Рефакторинг', 57.00, 'Мартин Фаулер', 448),
+            new Electronic('el-phone', 'Смартфон Honor 200', 899.00, 'Honor', 24),
+            new Electronic('el-headphones', 'Наушники ProMax', 189.00, 'SoundMax', 12),
+            new Electronic('el-watch', 'Умные часы Pulse S', 249.00, 'Pulse', 12),
         ]);
     }
 

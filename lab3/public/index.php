@@ -10,5 +10,4 @@ View::render('home', [
     'section' => null,
     'page'    => 'home',
     'styles'  => ['home'],
-    'scripts' => [],
 ]);

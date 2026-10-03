@@ -18,7 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $match = Arena::get($code);
 
         switch ($_POST['action'] ?? '') {
+            case 'rename':
+                $match->setSideNames((string) ($_POST['home'] ?? ''), (string) ($_POST['away'] ?? ''));
+                break;
+
             case 'start':
+                if (isset($_POST['home'], $_POST['away'])) {
+                    $match->setSideNames((string) $_POST['home'], (string) $_POST['away']);
+                }
                 $match->startMatch();
                 break;
 
@@ -50,7 +57,6 @@ View::render('sport', [
     'section' => 'sport',
     'page'    => 'sport',
     'styles'  => ['sport'],
-    'scripts' => [],
     'matches' => $matches,
     'code'    => $code,
     'match'   => $matches[$code],

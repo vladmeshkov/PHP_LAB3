@@ -8,11 +8,11 @@ final class Book extends Product
     public function __construct(
         string $id,
         string $name,
-        float $basePrice,
+        float $price,
         private string $author,
         private int $pages,
     ) {
-        parent::__construct($id, $name, $basePrice);
+        parent::__construct($id, $name, $price);
     }
 
     public function getAuthor(): string

@@ -11,6 +11,5 @@ View::render('history', [
     'section' => 'sport',
     'page'    => 'history',
     'styles'  => ['sport'],
-    'scripts' => [],
     'history' => Arena::history(),
 ]);

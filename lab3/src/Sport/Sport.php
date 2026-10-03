@@ -18,6 +18,8 @@ abstract class Sport implements Playable, Journaled
     public const LIVE     = 'live';
     public const FINISHED = 'finished';
 
+    public const NAME_MAX_LENGTH = 30;
+
     protected const PLAYERS_PER_SIDE = 1;
 
     protected string $status = self::WAITING;
@@ -49,6 +51,32 @@ abstract class Sport implements Playable, Journaled
     public function getPlayersCount(): int
     {
         return static::PLAYERS_PER_SIDE * 2;
+    }
+
+    /** Как называть участника в интерфейсе: «Команда» или «Игрок». */
+    public function getSideNoun(): string
+    {
+        return 'Команда';
+    }
+
+    /**
+     * Меняет названия сторон; пока матч не начался.
+     */
+    public function setSideNames(string $home, string $away): void
+    {
+        if ($this->status !== self::WAITING) {
+            throw new DomainException('Названия можно менять только до начала матча.');
+        }
+
+        $home = self::cleanName($home);
+        $away = self::cleanName($away);
+
+        if (mb_strtolower($home) === mb_strtolower($away)) {
+            throw new DomainException('Названия сторон должны различаться.');
+        }
+
+        $this->homeName = $home;
+        $this->awayName = $away;
     }
 
     public function getSideName(int $side): string
@@ -129,6 +157,18 @@ abstract class Sport implements Playable, Journaled
             $this->getScoreLabel(),
             $statusText
         );
+    }
+
+    private static function cleanName(string $name): string
+    {
+        $name = trim(preg_replace('/\s+/u', ' ', $name) ?? '');
+        $length = mb_strlen($name);
+
+        if ($length < 2 || $length > self::NAME_MAX_LENGTH) {
+            throw new DomainException('Название должно содержать от 2 до ' . self::NAME_MAX_LENGTH . ' символов.');
+        }
+
+        return $name;
     }
 
     protected function assertLive(): void

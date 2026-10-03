@@ -12,6 +12,5 @@ View::render('company', [
     'section' => 'shop',
     'page'    => 'company',
     'styles'  => ['company'],
-    'scripts' => [],
     'company' => $config['company'],
 ]);

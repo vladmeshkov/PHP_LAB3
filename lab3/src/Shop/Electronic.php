@@ -5,17 +5,17 @@ namespace Lab3\Shop;
 
 final class Electronic extends Product
 {
-    // На технику скидки ограничены жёстче, чем на остальные товары.
-    protected const MAX_DISCOUNT = 30;
+    // По промокоду на технику скидка не больше 30%, на остальные товары — до 50%.
+    protected const MAX_PROMO_DISCOUNT = 30;
 
     public function __construct(
         string $id,
         string $name,
-        float $basePrice,
+        float $price,
         private string $brand,
         private int $warrantyMonths,
     ) {
-        parent::__construct($id, $name, $basePrice);
+        parent::__construct($id, $name, $price);
     }
 
     public function getWarrantyPeriod(): int

@@ -17,7 +17,7 @@ $winner = $match->isFinished() ? $match->getWinner() : null;
 ?>
 <div class="page-head">
     <h1>Спортивные матчи</h1>
-    <p class="muted">Sport → Football, Basketball, Tennis · интерфейс Playable · трейт Loggable</p>
+    <p class="muted">Задайте названия, начните матч и записывайте очки. Завершённые матчи попадают в историю.</p>
 </div>
 
 <nav class="tabs" aria-label="Вид спорта">
@@ -66,17 +66,33 @@ $winner = $match->isFinished() ? $match->getWinner() : null;
         </div>
 <?php endif; ?>
 
+<?php if ($match->getStatus() === Sport::WAITING): ?>
+        <form method="post" class="names" data-validate>
+            <input type="hidden" name="sport" value="<?= e($code) ?>">
+            <label class="field"><?= e($match->getSideNoun()) ?> 1
+                <input name="home" value="<?= e($match->getSideName(Sport::HOME)) ?>" required minlength="2" maxlength="<?= Sport::NAME_MAX_LENGTH ?>" autocomplete="off">
+            </label>
+            <label class="field"><?= e($match->getSideNoun()) ?> 2
+                <input name="away" value="<?= e($match->getSideName(Sport::AWAY)) ?>" required minlength="2" maxlength="<?= Sport::NAME_MAX_LENGTH ?>" autocomplete="off">
+            </label>
+            <div class="names__actions">
+                <button class="btn btn--primary" name="action" value="start">Начать матч</button>
+                <button class="btn" name="action" value="rename">Сохранить названия</button>
+            </div>
+        </form>
+<?php endif; ?>
+
+<?php if ($match->getStatus() !== Sport::WAITING): ?>
         <form method="post" class="lifecycle">
             <input type="hidden" name="sport" value="<?= e($code) ?>">
-<?php if ($match->getStatus() === Sport::WAITING): ?>
-            <button class="btn btn--primary" name="action" value="start">Начать матч</button>
-<?php elseif ($match->isLive()): ?>
+<?php if ($match->isLive()): ?>
             <button class="btn" name="action" value="finish">Завершить матч</button>
 <?php endif; ?>
 <?php if ($match->getStatus() !== Sport::WAITING): ?>
             <button class="btn btn--ghost" name="action" value="restart"><?= $match->isFinished() ? 'Новый матч' : 'Сбросить матч' ?></button>
 <?php endif; ?>
         </form>
+<?php endif; ?>
     </section>
 
     <aside class="side">

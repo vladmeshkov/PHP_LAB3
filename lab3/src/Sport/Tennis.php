@@ -19,6 +19,11 @@ final class Tennis extends Sport
         return 'Теннис';
     }
 
+    public function getSideNoun(): string
+    {
+        return 'Игрок';
+    }
+
     public function rules(): string
     {
         return 'Одиночный матч до двух выигранных сетов. Очки в гейме идут 15, 30, 40; при 40:40 '

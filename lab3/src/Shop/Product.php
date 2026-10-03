@@ -3,23 +3,15 @@ declare(strict_types=1);
 
 namespace Lab3\Shop;
 
-use DomainException;
-use Lab3\Shop\Contracts\Discountable;
-use Lab3\Support\Contracts\Journaled;
-use Lab3\Support\Loggable;
-
-abstract class Product implements Discountable, Journaled
+abstract class Product
 {
-    use Loggable;
-
-    protected const MAX_DISCOUNT = 50;
-
-    protected float $discount = 0.0;
+    /** Максимальная скидка по промокоду для категории, в процентах. */
+    protected const MAX_PROMO_DISCOUNT = 50;
 
     public function __construct(
         protected string $id,
         protected string $name,
-        protected float $basePrice,
+        protected float $price,
     ) {
     }
 
@@ -33,45 +25,14 @@ abstract class Product implements Discountable, Journaled
         return $this->name;
     }
 
-    public function getBasePrice(): float
-    {
-        return $this->basePrice;
-    }
-
-    public function getDiscount(): float
-    {
-        return $this->discount;
-    }
-
-    public function hasDiscount(): bool
-    {
-        return $this->discount > 0;
-    }
-
     public function getPrice(): float
     {
-        return round($this->basePrice * (1 - $this->discount / 100), 2);
+        return $this->price;
     }
 
-    /**
-     * Скидка не накапливается: новое значение заменяет предыдущее.
-     * Передайте 0, чтобы вернуть исходную цену.
-     */
-    public function applyDiscount(float $percent): void
+    public function getMaxPromoDiscount(): int
     {
-        if ($percent < 0 || $percent > static::MAX_DISCOUNT) {
-            throw new DomainException(sprintf(
-                'Для категории «%s» допустима скидка от 0 до %d%%.',
-                $this->getCategory(),
-                static::MAX_DISCOUNT
-            ));
-        }
-
-        $this->discount = $percent;
-
-        $this->log($percent > 0
-            ? sprintf('Скидка %s%% применена: %s', $percent, $this->name)
-            : sprintf('Скидка отменена: %s', $this->name));
+        return static::MAX_PROMO_DISCOUNT;
     }
 
     abstract public function getCategory(): string;

@@ -1,29 +1,26 @@
 <div class="home">
     <header class="home__head">
-        <p class="home__eyebrow">Лабораторная работа №3 · вариант 5</p>
-        <h1>Объектно-ориентированное программирование на PHP</h1>
-        <p class="home__lead">Выберите, какую часть задания открыть. Каждая часть работает независимо.</p>
+        <h1>Выберите раздел</h1>
+        <p class="home__lead">Интернет-магазин «ТехноКнига» и спортивные матчи с ведением счёта.</p>
     </header>
 
     <div class="home__cards">
         <a class="choice" href="shop.php">
-            <span class="choice__num">Задание 1</span>
             <h2>Интернет-магазин</h2>
-            <p>Каталог товаров, корзина, скидки и оплата картой или через PayPal. Сведения о компании и журнал событий.</p>
+            <p>Книги и электроника в белорусских рублях. Корзина, промокоды, оплата картой или через PayPal.</p>
             <ul class="choice__tags">
-                <li>Product</li><li>Book</li><li>Electronic</li><li>Payable</li><li>Loggable</li>
+                <li>Каталог</li><li>Корзина</li><li>О компании</li><li>Журнал</li>
             </ul>
-            <span class="choice__go">Открыть магазин</span>
+            <span class="choice__go">Перейти в магазин</span>
         </a>
 
         <a class="choice" href="sport.php">
-            <span class="choice__num">Задание 2</span>
             <h2>Спортивные матчи</h2>
-            <p>Футбол, баскетбол и теннис: табло, подсчёт очков, ход матча и история завершённых игр.</p>
+            <p>Футбол, баскетбол и теннис: задайте свои команды или игроков, ведите счёт и просматривайте историю игр.</p>
             <ul class="choice__tags">
-                <li>Sport</li><li>Football</li><li>Basketball</li><li>Tennis</li><li>Playable</li>
+                <li>Футбол</li><li>Баскетбол</li><li>Теннис</li><li>История</li>
             </ul>
-            <span class="choice__go">Открыть матчи</span>
+            <span class="choice__go">Перейти к матчам</span>
         </a>
     </div>
 </div>

@@ -3,14 +3,14 @@ use Lab3\Support\Money;
 ?>
 <div class="page-head">
     <h1>Журнал магазина</h1>
-    <p class="muted">Все скидки и платежи, записанные трейтом Loggable. Хранится последние 40 записей.</p>
+    <p class="muted">Добавления в корзину, промокоды и платежи. Хранятся последние 40 записей.</p>
 </div>
 
 <div class="shop shop--journal">
     <section class="panel">
         <h2>События</h2>
 <?php if (!$journal): ?>
-        <p class="muted">Пока пусто. Примените скидку или оплатите заказ в каталоге.</p>
+        <p class="muted">Пока пусто. Добавьте товар в корзину или оплатите заказ.</p>
 <?php else: ?>
         <ol class="journal journal--full">
 <?php foreach ($journal as $entry): ?>

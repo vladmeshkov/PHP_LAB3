@@ -1,7 +1,6 @@
 .home { padding-top: 56px; display: grid; gap: 40px; }
 .home__head { max-width: 720px; display: grid; gap: 12px; }
 .home__head h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; }
-.home__eyebrow { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
 .home__lead { color: var(--muted); font-size: 1.1rem; }
 
 .home__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
@@ -9,7 +8,6 @@
 .choice { display: grid; gap: 12px; align-content: start; padding: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); text-decoration: none; transition: border-color 0.15s, transform 0.15s; }
 .choice:hover { border-color: var(--accent); transform: translateY(-2px); }
 .choice:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.choice__num { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
 .choice h2 { margin: 0; font-size: 1.5rem; }
 .choice p { color: var(--muted); }
 .choice__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; padding: 0; list-style: none; }

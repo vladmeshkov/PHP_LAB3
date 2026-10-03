@@ -11,7 +11,6 @@ View::render('journal', [
     'section' => 'shop',
     'page'    => 'journal',
     'styles'  => ['shop'],
-    'scripts' => [],
     'journal' => Store::journal(),
     'orders'  => Store::orders(),
 ]);
