@@ -10,6 +10,7 @@ use Lab3\Support\Theme;
 // Классы должны быть доступны до session_start(), иначе объекты
 // из сессии десериализуются как __PHP_Incomplete_Class.
 session_start();
+State::boot();
 Theme::init();
 
 function e(string|int|float|null $value): string

@@ -11,6 +11,17 @@ final class State
 {
     private const ROOT = 'lab3';
 
+    /** Увеличивайте при изменении свойств классов, лежащих в сессии: старое состояние будет сброшено. */
+    private const VERSION = 4;
+
+    public static function boot(): void
+    {
+        if (($_SESSION[self::ROOT . '_version'] ?? null) !== self::VERSION) {
+            unset($_SESSION[self::ROOT]);
+            $_SESSION[self::ROOT . '_version'] = self::VERSION;
+        }
+    }
+
     public static function remember(string $key, callable $factory): mixed
     {
         if (!isset($_SESSION[self::ROOT][$key])) {
