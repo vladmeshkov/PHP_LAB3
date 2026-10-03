@@ -27,7 +27,7 @@ $nav = $section ? $sections[$section]['pages'] : [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= e($title) ?> · Портал</title>
+    <title><?= e($title) ?> · ООП на PHP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap&subset=cyrillic">
@@ -39,7 +39,7 @@ $nav = $section ? $sections[$section]['pages'] : [];
 <body>
 <header class="topbar">
     <div class="container topbar__inner">
-        <a class="brand" href="index.php">Портал</a>
+        <a class="brand" href="index.php">ООП на PHP</a>
 <?php if ($section): ?>
         <span class="topbar__section"><?= e($sections[$section]['label']) ?></span>
 <?php endif; ?>
@@ -65,7 +65,6 @@ $nav = $section ? $sections[$section]['pages'] : [];
 
 <footer class="footer">
     <div class="container footer__inner">
-        <span>© <?= date("Y") ?> Портал</span>
         <form method="post">
             <button class="btn btn--link" name="action" value="reset_state">Сбросить данные</button>
         </form>
