@@ -57,3 +57,6 @@
     .product__buy { justify-items: start; min-width: 0; }
     .actions { justify-items: start; }
 }
+
+.shop--journal { grid-template-columns: minmax(0, 1fr) 360px; }
+@media (max-width: 900px) { .shop--journal { grid-template-columns: 1fr; } }

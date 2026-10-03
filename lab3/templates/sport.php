@@ -102,6 +102,7 @@ $winner = $match->isFinished() ? $match->getWinner() : null;
 <?php endforeach; ?>
             </ol>
 <?php endif; ?>
+            <p class="more"><a href="history.php">История завершённых матчей</a></p>
         </section>
     </aside>
 </div>

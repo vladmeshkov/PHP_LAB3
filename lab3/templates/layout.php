@@ -3,11 +3,24 @@ use Lab3\Support\Flash;
 use Lab3\Support\Theme;
 
 $theme = Theme::current();
-$nav = [
-    'shop'  => ['index.php', 'Магазин'],
-    'sport' => ['sport.php', 'Спорт'],
-    'about' => ['about.php', 'О проекте'],
+$sections = [
+    'shop'  => [
+        'label' => 'Магазин',
+        'pages' => [
+            'shop'    => ['shop.php', 'Каталог'],
+            'company' => ['company.php', 'О компании'],
+            'journal' => ['journal.php', 'Журнал'],
+        ],
+    ],
+    'sport' => [
+        'label' => 'Спорт',
+        'pages' => [
+            'sport'   => ['sport.php', 'Матчи'],
+            'history' => ['history.php', 'История матчей'],
+        ],
+    ],
 ];
+$nav = $section ? $sections[$section]['pages'] : [];
 ?>
 <!DOCTYPE html>
 <html lang="ru" data-theme="<?= e($theme) ?>">
@@ -15,6 +28,9 @@ $nav = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($title) ?> · Лабораторная работа №3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap&subset=cyrillic">
     <link rel="stylesheet" href="assets/css/base.css">
 <?php foreach ($styles as $style): ?>
     <link rel="stylesheet" href="assets/css/<?= e($style) ?>.css">
@@ -23,16 +39,19 @@ $nav = [
 <body>
 <header class="topbar">
     <div class="container topbar__inner">
-        <a class="brand" href="index.php">ООП на PHP<span class="brand__tag">лаб. 3</span></a>
+        <a class="brand" href="index.php">ООП на PHP</a>
+<?php if ($section): ?>
+        <span class="topbar__section"><?= e($sections[$section]['label']) ?></span>
+<?php endif; ?>
         <nav class="nav" aria-label="Разделы">
 <?php foreach ($nav as $key => [$href, $label]): ?>
             <a href="<?= e($href) ?>"<?= $key === $page ? ' aria-current="page"' : '' ?>><?= e($label) ?></a>
 <?php endforeach; ?>
         </nav>
-        <form method="post" class="topbar__theme">
-            <button class="btn btn--ghost" name="action" value="toggle_theme">
-                <?= $theme === Theme::DARK ? 'Светлая тема' : 'Тёмная тема' ?>
-            </button>
+        <form method="post" class="theme-switch" aria-label="Тема оформления">
+            <input type="hidden" name="action" value="set_theme">
+            <button name="theme" value="light"<?= $theme === Theme::LIGHT ? ' class="is-active" aria-pressed="true"' : ' aria-pressed="false"' ?>>Светлая</button>
+            <button name="theme" value="dark"<?= $theme === Theme::DARK ? ' class="is-active" aria-pressed="true"' : ' aria-pressed="false"' ?>>Тёмная</button>
         </form>
     </div>
 </header>
@@ -46,7 +65,7 @@ $nav = [
 
 <footer class="footer">
     <div class="container footer__inner">
-        <span>Высокоуровневые языки программирования · вариант 5</span>
+        <span>Высокоуровневые языки программирования · лабораторная работа №3 · вариант 5</span>
         <form method="post">
             <button class="btn btn--link" name="action" value="reset_state">Сбросить демо-данные</button>
         </form>

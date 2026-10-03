@@ -27,8 +27,8 @@ function redirect(?string $to = null): void
 // Действия, общие для всех страниц: смена темы и сброс данных.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($_POST['action'] ?? '') {
-        case 'toggle_theme':
-            Theme::toggle();
+        case 'set_theme':
+            Theme::set((string) ($_POST['theme'] ?? ''));
             redirect();
 
         case 'reset_state':

@@ -5,7 +5,7 @@ use Lab3\Support\Money;
 /** @var Product[] $products */
 ?>
 <div class="page-head">
-    <h1>Интернет-магазин</h1>
+    <h1>Каталог</h1>
     <p class="muted">Product → Book, Electronic · интерфейсы Discountable и Payable · трейт Loggable</p>
 </div>
 
@@ -141,6 +141,7 @@ use Lab3\Support\Money;
 <?php endforeach; ?>
             </ol>
 <?php endif; ?>
+            <p class="more"><a href="journal.php">Весь журнал и заказы</a></p>
         </section>
     </aside>
 </div>

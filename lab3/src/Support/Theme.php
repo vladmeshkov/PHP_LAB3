@@ -13,9 +13,9 @@ final class Theme
         return $_SESSION['theme'] === self::DARK ? self::DARK : self::LIGHT;
     }
 
-    public static function toggle(): void
+    public static function set(string $theme): void
     {
-        $_SESSION['theme'] = self::current() === self::DARK ? self::LIGHT : self::DARK;
+        $_SESSION['theme'] = $theme === self::DARK ? self::DARK : self::LIGHT;
     }
 
     public static function init(): void

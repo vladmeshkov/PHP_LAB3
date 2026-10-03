@@ -22,6 +22,8 @@ abstract class Sport implements Playable, Journaled
 
     protected string $status = self::WAITING;
 
+    private bool $archived = false;
+
     /** @var int[] */
     protected array $score = [0, 0];
 
@@ -67,6 +69,16 @@ abstract class Sport implements Playable, Journaled
     public function isFinished(): bool
     {
         return $this->status === self::FINISHED;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function markArchived(): void
+    {
+        $this->archived = true;
     }
 
     public function startMatch(): void

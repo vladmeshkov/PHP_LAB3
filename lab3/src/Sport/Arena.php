@@ -21,6 +21,37 @@ final class Arena
         ]);
     }
 
+    /**
+     * Переносит завершённые матчи в историю (каждый ровно один раз).
+     *
+     * @return array<int, array{sport: string, home: string, away: string, score: string, winner: ?string, at: int, events: array}>
+     */
+    public static function history(): array
+    {
+        foreach (self::matches() as $match) {
+            if ($match->isFinished() && !$match->isArchived()) {
+                $winner = $match->getWinner();
+                $entry = [
+                    'sport'  => $match->getTitle(),
+                    'home'   => $match->getSideName(Sport::HOME),
+                    'away'   => $match->getSideName(Sport::AWAY),
+                    'score'  => $match->getBoardScore(),
+                    'winner' => $winner === null ? null : $match->getSideName($winner),
+                    'at'     => time(),
+                    'events' => $match->getLog(),
+                ];
+                State::put('history', array_slice(
+                    array_merge([$entry], State::remember('history', static fn (): array => [])),
+                    0,
+                    30
+                ));
+                $match->markArchived();
+            }
+        }
+
+        return State::remember('history', static fn (): array => []);
+    }
+
     public static function get(string $code): Sport
     {
         return self::matches()[$code] ?? throw new DomainException('Неизвестный вид спорта.');

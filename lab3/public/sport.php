@@ -41,11 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Flash::add('error', $error->getMessage());
     }
 
+    Arena::history();
     redirect('sport.php?sport=' . urlencode($code));
 }
 
 View::render('sport', [
-    'title'   => 'Спорт',
+    'title'   => 'Матчи',
+    'section' => 'sport',
     'page'    => 'sport',
     'styles'  => ['sport'],
     'scripts' => [],
